@@ -1,0 +1,64 @@
+1 CREATE TABLE 新表 LIKE 旧表 ;
+注意上面两种方式，前一种方式是不会复制时的主键类型和自增方式是不会复制过去的，而后一种方式是把旧表的所有字段类型都复制到新表。
+
+ 
+2.复制表结构及数据到新表
+1 CREATE TABLE 新表 SELECT * FROM 旧表
+ 
+3.复制旧表的数据到新表(假设两个表结构一样) 
+1 INSERT INTO 新表 SELECT * FROM 旧表
+ 
+4.复制旧表的数据到新表(假设两个表结构不一样)
+1 INSERT INTO 新表(字段1,字段2,.......) SELECT 字段1,字段2,...... FROM 旧表
+
+
+mysql定义存储过程及调用
+delimmiter //
+
+create procedure pro_name (in pname int)
+begin
+	select pname;
+	set pname=2;
+	select pname;
+end//
+
+delimmiter ;
+
+set @pname=1;//变量定义需要@符号,而在触发器，存储过程中可以不带
+call pro_name(@pname);
+
+
+定义触发器
+delimiter $$
+create trigger trig after insert
+on student for each row
+begin
+declare c int;
+set c = (select stuCount from class where classID=new.classID);
+update class set stuCont = c+1 where classID = new.classID;
+end$$
+delimiter ;
+
+在 INSERT 型触发器中，new表示插入的数据
+在 UPDATE 型触发器中，OLD 表示修改前的数据，NEW 修改后的新数据；
+在 DELETE 型触发器中，OLD 表示被删除的数据；
+
+相当于student的每一行都添加一个触发,如果修改多行,那么触发器里的语句也执行多次
+
+create sequence emp_seq
+start with 1
+increment by 1
+minvalue 1
+nomaxvalue
+nocycle
+nocache
+
+创建oracle中的主键策略
+
+
+mysql的备份和恢复
+
+mysqldump -uroot -pkey2kami ssmdemo > d:/ssmdemo.sql
+
+create database ssmdemo;
+source d:/ssmdemo.sql;

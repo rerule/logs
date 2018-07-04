@@ -1,0 +1,30 @@
+java.thread
+
+多线程:
+synchronized 不能继承，可锁重入，参数一般通过构造器传入
+锁是针对对象的:
+如果线程A调用了一个对象的同步方法，那么线程B调用该对象的同步块将会等待，没用synchronized修饰的方法则可以正常执行，不会阻塞
+多线程中涉及的重要方法:
+
+	wait,notify/notifyAll(object的对象方法)
+	Thread.sleep(1000) 需要捕获异常
+	this.interrupt()中断标志位
+	Thread.interrupted()中断标志位如果有则true，但是得到返回值时，会清除标志位
+	threadA.isInterrupted()不会清除标志位
+	Thread.yield() 
+
+
+
+
+获得某线程的特性及特点:
+Thread.currentThread().getId()
+Thread.currentThread().getName()
+Thread.currentThread().setName()
+Thread.currentThread().getPriority() 
+Thread.currentThread().setPriority()
+Thread.currentThread().setDaemon(boolean on)
+Thread.currentThread().isDaemon() 
+Thread.currentThread().isAlive() 
+Thread.currentThread().join() 
+
+
